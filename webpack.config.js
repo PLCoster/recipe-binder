@@ -3,7 +3,7 @@ const path = require('path');
 // Webpack config settings export
 
 module.exports = {
-  entry: './client/index.js',
+  entry: './client/index.jsx',
   output: {
     path: path.join(__dirname, '/build'),
     filename: 'bundle.js',
@@ -22,5 +22,8 @@ module.exports = {
         },
       },
     ],
+  },
+  devServer: {
+    static: __dirname,
   },
 };

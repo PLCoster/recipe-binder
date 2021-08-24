@@ -4,6 +4,9 @@
   "description": "Codesmith Solo Project",
   "main": "index.html",
   "scripts": {
+    "start": "node server/server.js",
+    "build": "webpack --mode production",
+    "dev": "concurrently \"webpack serve --open --mode development\" \" nodemon server/server.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
