@@ -6,7 +6,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 // Webpack config settings export
 
 module.exports = {
-  entry: './client/index.js',
+  entry: './client/index.jsx',
   output: {
     filename: 'bundle.js',
     path: path.join(__dirname, '/build'),
@@ -29,11 +29,6 @@ module.exports = {
       directory: path.join(__dirname, '/client'),
     },
   },
-  plugins: [
-    new HTMLWebpackPlugin({
-      template: './client/index.html',
-    }),
-  ],
 };
 
 // module.exports = {
