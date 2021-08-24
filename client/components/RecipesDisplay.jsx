@@ -1,7 +1,7 @@
 import React from 'react';
 
 // React function component for displaying numerous recipe cards
-const RecipesDisplay = ({ recipeList }) => {
+const RecipesDisplay = ({ recipeList, addRecipe }) => {
   // Create recipe component for each recipe in props.recipes
   const recipes = [];
   console.log('RecipeList: ', recipeList);
@@ -17,6 +17,7 @@ const RecipesDisplay = ({ recipeList }) => {
     <div className="recipesDisplay">
       <h4>Recipes</h4>
       {recipes}
+      <button type="submit" onClick={addRecipe}>Add a Recipe</button>
     </div>
   );
 };

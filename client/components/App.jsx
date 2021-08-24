@@ -8,6 +8,14 @@ class App extends Component {
       test: 'hello',
       recipeList: ['Recipe1', 'Recipe2', 'Recipe3', 'Recipe4'],
     };
+    this.addRecipe = this.addRecipe.bind(this);
+  }
+
+  // Test function to add recipe to recipeList
+  addRecipe() {
+    const newRecipes = this.state.recipeList.slice();
+    newRecipes.push('NEW RECIPE ADDED!');
+    this.setState({ recipeList: newRecipes });
   }
 
   render() {
@@ -19,7 +27,7 @@ class App extends Component {
         <h2>
           {test}
         </h2>
-        <RecipesDisplay recipeList={recipeList} />
+        <RecipesDisplay recipeList={recipeList} addRecipe={this.addRecipe} />
       </div>
     );
   }
