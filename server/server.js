@@ -39,19 +39,21 @@ app.get('/signup', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../client/signup.html'));
 });
 
-/**
- * 404 handler
- */
+// 404 - Invalid Route Handler
 app.use('*', (req, res) => {
   res.status(404).send('Not Found');
 });
 
-/**
- * Global error handler
- */
+// Express internal server error handler
 app.use((err, req, res, next) => {
-  console.log(err);
-  res.status(500).send('Internal Server Error - Check server logs');
+  const defaultErr = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 500,
+    message: { err: 'An error occurred' },
+  };
+  const errorObj = { ...defaultErr, err };
+  console.log(errorObj.log);
+  return res.status(errorObj.status).json(errorObj.message);
 });
 
 // Start App listening on port 3000
