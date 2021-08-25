@@ -1,5 +1,5 @@
 import React from 'react';
-import RecipeCreator from './RecipeCreator.jsx';
+import { Link } from 'react-router-dom';
 
 // React function component for displaying numerous recipe cards
 const RecipesDisplay = ({ recipeList, addRecipe, deleteRecipe, updateFormVal, formVals}) => {
@@ -11,6 +11,9 @@ const RecipesDisplay = ({ recipeList, addRecipe, deleteRecipe, updateFormVal, fo
       <section>
         <h5 key={`recipe-${recipeList[i]._id}`}>
           {recipeList[i].title}
+          <Link to={`/recipe/:${recipeList[i]._id}`}>
+            <button type="button">View Recipe</button>
+          </Link>
           <button
             type="submit"
             onClick={() => deleteRecipe(recipeList[i]._id)}

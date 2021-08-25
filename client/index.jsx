@@ -9,8 +9,10 @@ import {
   useRouteMatch
 } from "react-router-dom";
 
+// Import React Components
 import App from './components/App.jsx';
 import RecipeCreator from './components/RecipeCreator.jsx'
+import RecipeDisplay from './components/RecipeDisplay.jsx'
 
 render(
   <Router>
@@ -31,6 +33,9 @@ render(
       <Switch>
         <Route path="/addRecipe">
           <RecipeCreator />
+        </Route>
+        <Route path="/recipe/:id">
+          <RecipeDisplay />
         </Route>
         <Route path="/">
           <App />
