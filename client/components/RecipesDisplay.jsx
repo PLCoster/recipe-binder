@@ -9,7 +9,7 @@ const RecipesDisplay = ({ recipeList, addRecipe, deleteRecipe, updateFormVal, fo
   for (let i = 0; i < recipeList.length; i += 1) {
     recipes.push(
       <section>
-        <h5 key={`recipe-${i}`}>
+        <h5 key={`recipe-${recipeList[i]._id}`}>
           {recipeList[i].title}
           <button
             type="submit"
@@ -26,11 +26,6 @@ const RecipesDisplay = ({ recipeList, addRecipe, deleteRecipe, updateFormVal, fo
     <div className="recipesDisplay">
       <h4>Recipes</h4>
       {recipes}
-      <RecipeCreator
-        addRecipe={addRecipe}
-        updateFormVal={updateFormVal}
-        formVals={formVals}
-      />
     </div>
   );
 };
