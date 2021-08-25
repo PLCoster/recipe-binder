@@ -62,7 +62,6 @@ class App extends Component {
 
     return (
       <div>
-        <h1>This is your App!</h1>
         <RecipesDisplay
           recipeList={recipeList}
           deleteRecipe={this.deleteRecipe}

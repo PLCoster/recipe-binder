@@ -30,7 +30,6 @@ render(
           renders the first one that matches the current URL. */}
       <Switch>
         <Route path="/addRecipe">
-          <h1>THIS IS THE ABOUT PAGE</h1>
           <RecipeCreator />
         </Route>
         <Route path="/">

@@ -24,7 +24,7 @@ const RecipesDisplay = ({ recipeList, addRecipe, deleteRecipe, updateFormVal, fo
 
   return (
     <div className="recipesDisplay">
-      <h4>Recipes</h4>
+      <h3> All Recipes: </h3>
       {recipes}
     </div>
   );
