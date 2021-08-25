@@ -9,6 +9,11 @@ const router = express.Router();
 router.get('/', recipeController.getRecipes, (req, res) => {
   console.log('ENTERED GET ROUTE OF API ROUTER');
   return res.status(200).json(res.locals.recipes);
-})
+});
+
+router.post('/recipe', recipeController.addRecipe, (req, res) => {
+  console.log('ENTERED ADD RECIPE ROUTE OF API ROUTER');
+  return res.status(200).json(res.locals.addedRecipe);
+});
 
 module.exports = router;
