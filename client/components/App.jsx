@@ -4,12 +4,20 @@ import RecipesDisplay from './RecipesDisplay.jsx';
 class App extends Component {
   constructor(props) {
     super(props);
+
+    this.initialFormVals = { name: '' };
+
     this.state = {
       test: 'hello',
       recipeList: [{ name: 'Recipe1' }, { name: 'Recipe2' }, { name: 'Recipe3' }, { name: 'Recipe4' }],
+      formVals: {
+        name: '',
+      },
     };
+
     this.addRecipe = this.addRecipe.bind(this);
     this.deleteRecipe = this.deleteRecipe.bind(this);
+    this.updateFormVal = this.updateFormVal.bind(this);
   }
 
   componentDidMount() {
@@ -36,14 +44,14 @@ class App extends Component {
 
   // Test function to add simple recipe to DB on button click:
   addRecipe() {
-    console.log('Trying to add a new recipe to DB');
+    console.log('Trying to add a new recipe to DB', this.state.formVals);
 
     fetch('/api/recipe', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name: 'Added Recipe via client' }),
+      body: JSON.stringify({ name: this.state.formVals.name }),
     })
       .then((response) => {
         if (response.status === 200) {
@@ -52,9 +60,13 @@ class App extends Component {
         throw new Error('Error when trying to add recipe via api, status: ', response.status);
       })
       .then((recipeObj) => {
+        // Clear input and add new recipe to RecipeList
         const newRecipeList = this.state.recipeList.slice();
         newRecipeList.push(recipeObj);
-        this.setState({ recipeList: newRecipeList });
+        this.setState({
+          recipeList: newRecipeList,
+          formVals: { ...this.initialFormVals },
+        });
       })
       .catch((error) => console.error(error));
   }
@@ -82,8 +94,14 @@ class App extends Component {
       .catch((error) => console.error(error));
   }
 
+  // Updates form values in state as they are changed
+  updateFormVal(value, key) {
+    console.log('Updating form values: ', key, value);
+    this.setState({formVals: {...this.state.formVals, [key]: value}});
+  }
+
   render() {
-    const { test, recipeList } = this.state;
+    const { test, recipeList, formVals } = this.state;
 
     return (
       <div>
@@ -95,6 +113,8 @@ class App extends Component {
           recipeList={recipeList}
           addRecipe={this.addRecipe}
           deleteRecipe={this.deleteRecipe}
+          updateFormVal={this.updateFormVal}
+          formVals={formVals}
         />
       </div>
     );

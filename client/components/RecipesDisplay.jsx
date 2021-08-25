@@ -1,17 +1,23 @@
 import React from 'react';
+import RecipeCreator from './RecipeCreator.jsx';
 
 // React function component for displaying numerous recipe cards
-const RecipesDisplay = ({ recipeList, addRecipe, deleteRecipe }) => {
+const RecipesDisplay = ({ recipeList, addRecipe, deleteRecipe, updateFormVal, formVals}) => {
   // Create recipe component for each recipe in props.recipes
   const recipes = [];
   console.log('RecipeList: ', recipeList);
   for (let i = 0; i < recipeList.length; i += 1) {
     recipes.push(
       <section>
-        <h3 key={`recipe-${i}`}>
+        <h5 key={`recipe-${i}`}>
           {recipeList[i].name}
-        </h3>
-        <button type="submit" onClick={() => deleteRecipe(recipeList[i]._id)}>Delete This Recipe</button>
+          <button
+            type="submit"
+            onClick={() => deleteRecipe(recipeList[i]._id)}
+          >
+            Delete This Recipe
+          </button>
+        </h5>
       </section>,
     );
   }
@@ -20,7 +26,11 @@ const RecipesDisplay = ({ recipeList, addRecipe, deleteRecipe }) => {
     <div className="recipesDisplay">
       <h4>Recipes</h4>
       {recipes}
-      <button type="submit" onClick={addRecipe}>Add a Recipe</button>
+      <RecipeCreator
+        addRecipe={addRecipe}
+        updateFormVal={updateFormVal}
+        formVals={formVals}
+      />
     </div>
   );
 };
