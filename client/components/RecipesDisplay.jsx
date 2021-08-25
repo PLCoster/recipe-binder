@@ -11,7 +11,7 @@ const RecipesDisplay = ({ recipeList, addRecipe, deleteRecipe, updateFormVal, fo
       <section>
         <h5 key={`recipe-${recipeList[i]._id}`}>
           {recipeList[i].title}
-          <Link to={`/recipe/:${recipeList[i]._id}`}>
+          <Link to={`/recipe/${recipeList[i]._id}`}>
             <button type="button">View Recipe</button>
           </Link>
           <button

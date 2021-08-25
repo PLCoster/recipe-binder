@@ -26,6 +26,7 @@ recipeController.getRecipeDetails = async (req, res, next) => {
     res.locals.recipeDetails = result;
     return next();
   } catch (err) {
+    console.log('ERROR in getRecipes', err);
     return next({
       log: `Error in recipeController.getRecipeDetails: ERROR: ${err}`,
       message: { err: 'Error getting recipe details from database - see server logs' },
