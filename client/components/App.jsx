@@ -9,6 +9,7 @@ class App extends Component {
       recipeList: [{ name: 'Recipe1' }, { name: 'Recipe2' }, { name: 'Recipe3' }, { name: 'Recipe4' }],
     };
     this.addRecipe = this.addRecipe.bind(this);
+    this.deleteRecipe = this.deleteRecipe.bind(this);
   }
 
   componentDidMount() {
@@ -40,9 +41,9 @@ class App extends Component {
     fetch('/api/recipe', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({name: 'Added Recipe via client'}),
+      body: JSON.stringify({ name: 'Added Recipe via client' }),
     })
       .then((response) => {
         if (response.status === 200) {
@@ -58,6 +59,29 @@ class App extends Component {
       .catch((error) => console.error(error));
   }
 
+  deleteRecipe(recipeId) {
+    console.log('Trying to delete recipe from DB');
+
+    fetch('/api/recipe', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: recipeId }),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        throw new Error('Error when trying to add recipe via api, status: ', response.status);
+      })
+      .then((recipeObj) => {
+        // Update Recipes since one has been deleted
+        this.getRecipes();
+      })
+      .catch((error) => console.error(error));
+  }
+
   render() {
     const { test, recipeList } = this.state;
 
@@ -67,7 +91,11 @@ class App extends Component {
         <h2>
           {test}
         </h2>
-        <RecipesDisplay recipeList={recipeList} addRecipe={this.addRecipe} />
+        <RecipesDisplay
+          recipeList={recipeList}
+          addRecipe={this.addRecipe}
+          deleteRecipe={this.deleteRecipe}
+        />
       </div>
     );
   }
