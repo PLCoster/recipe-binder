@@ -8,6 +8,8 @@ import {
   useParams,
   useRouteMatch
 } from "react-router-dom";
+// Import styles
+import styles from './scss/application.scss';
 
 // Import React Components
 import App from './components/App.jsx';
@@ -26,6 +28,7 @@ render(
             <Link to="/addRecipe">Add a Recipe</Link>
           </li>
         </ul>
+        <button type="button" className="btn btn-primary">TEST!</button>
       </nav>
 
       {/* A <Switch> looks through its children <Route>s and
