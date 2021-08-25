@@ -35,9 +35,27 @@ class App extends Component {
 
   // Test function to add simple recipe to DB on button click:
   addRecipe() {
-    const newRecipes = this.state.recipeList.slice();
-    newRecipes.push({name: 'NEW RECIPE ADDED!'});
-    this.setState({ recipeList: newRecipes });
+    console.log('Trying to add a new recipe to DB');
+
+    fetch('/api/recipe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({name: 'Added Recipe via client'}),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        throw new Error('Error when trying to add recipe via api, status: ', response.status);
+      })
+      .then((recipeObj) => {
+        const newRecipeList = this.state.recipeList.slice();
+        newRecipeList.push(recipeObj);
+        this.setState({ recipeList: newRecipeList });
+      })
+      .catch((error) => console.error(error));
   }
 
   render() {
