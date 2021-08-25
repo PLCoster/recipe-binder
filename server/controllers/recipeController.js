@@ -17,6 +17,22 @@ recipeController.getRecipes = async (req, res, next) => {
   }
 };
 
+recipeController.getRecipeDetails = async (req, res, next) => {
+  console.log('Trying to get recipe from id:', req.params);
+  // Get all recipes and return them as an array
+  try {
+    const result = await Recipe.findOne({ _id: req.params.id });
+    console.log('Tried to get recipe details, result: ', result);
+    res.locals.recipeDetails = result;
+    return next();
+  } catch (err) {
+    return next({
+      log: `Error in recipeController.getRecipeDetails: ERROR: ${err}`,
+      message: { err: 'Error getting recipe details from database - see server logs' },
+    });
+  }
+};
+
 recipeController.addRecipe = async (req, res, next) => {
   // Get request body for DB input
   console.log('Request to addRecipe, :', req.body);

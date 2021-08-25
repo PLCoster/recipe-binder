@@ -19,10 +19,11 @@ mongoose.connect(MONGO_URI, {
   dbName: 'cs-solo-db',
 })
   .then(() => console.log('Connected to Mongo DB.'))
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
-// Parse body of requests sent to server:
+// Parse body and querystrings of requests sent to server:
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Serve webpack files from build folder
 app.use('/build', express.static(path.join(__dirname, '../build')));

@@ -11,6 +11,11 @@ router.get('/', recipeController.getRecipes, (req, res) => {
   return res.status(200).json(res.locals.recipes);
 });
 
+router.get('/recipe/:id', recipeController.getRecipeDetails, (req, res) => {
+  console.log('ENTERED GET RECIPE DETAILS ROUTE OF API');
+  return res.status(200).json(res.locals.recipeDetails);
+});
+
 router.post('/recipe', recipeController.addRecipe, (req, res) => {
   console.log('ENTERED ADD RECIPE ROUTE OF API ROUTER');
   return res.status(200).json(res.locals.addedRecipe);

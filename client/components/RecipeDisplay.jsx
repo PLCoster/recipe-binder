@@ -7,10 +7,10 @@ const RecipeDisplay = () => {
   const { id } = useParams();
   const [recipeDetails, setRecipeDetails] = useState({});
 
-  // // Function that fetches recipe details from server
-  // const getRecipeDetails = () => {
+  // Function that fetches recipe details from server
+  const getRecipeDetails = () => {
 
-  // }
+  };
 
   // useEffect(() => {
   //   // Fetch the single recipe details in here
