@@ -16,4 +16,9 @@ router.post('/recipe', recipeController.addRecipe, (req, res) => {
   return res.status(200).json(res.locals.addedRecipe);
 });
 
+router.delete('/recipe', recipeController.deleteRecipe, (req, res) => {
+  console.log('ENTERED DELETE RECIPE ROUTE OF API ROUTER');
+  return res.status(200).json(res.locals.deletedRecipe);
+});
+
 module.exports = router;

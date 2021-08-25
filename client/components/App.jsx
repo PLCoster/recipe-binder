@@ -6,7 +6,7 @@ class App extends Component {
     super(props);
     this.state = {
       test: 'hello',
-      recipeList: ['Recipe1', 'Recipe2', 'Recipe3', 'Recipe4'],
+      recipeList: [{ name: 'Recipe1' }, { name: 'Recipe2' }, { name: 'Recipe3' }, { name: 'Recipe4' }],
     };
     this.addRecipe = this.addRecipe.bind(this);
   }
