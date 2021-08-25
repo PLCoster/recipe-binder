@@ -8,7 +8,7 @@ const RecipesDisplay = ({ recipeList, addRecipe }) => {
   for (let i = 0; i < recipeList.length; i += 1) {
     recipes.push(
       <h3 key={`recipe-${i}`}>
-        {recipeList[i]}
+        {recipeList[i].name}
       </h3>,
     );
   }
