@@ -10,7 +10,7 @@ const RecipesDisplay = ({ recipeList, addRecipe, deleteRecipe, updateFormVal, fo
     recipes.push(
       <section>
         <h5 key={`recipe-${i}`}>
-          {recipeList[i].name}
+          {recipeList[i].title}
           <button
             type="submit"
             onClick={() => deleteRecipe(recipeList[i]._id)}

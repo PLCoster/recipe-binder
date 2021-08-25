@@ -5,14 +5,21 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.initialFormVals = { name: '' };
+    this.initialFormVals = {
+      title: '',
+      description: '',
+      ingredients: '',
+      instructions: '',
+      prepTime: '',
+      cookTime: '',
+      numServings: '',
+      privateRecipe: true,
+    };
 
     this.state = {
       test: 'hello',
-      recipeList: [{ name: 'Recipe1' }, { name: 'Recipe2' }, { name: 'Recipe3' }, { name: 'Recipe4' }],
-      formVals: {
-        name: '',
-      },
+      recipeList: [{ title: 'Recipe1' }, { title: 'Recipe2' }, { title: 'Recipe3' }, { title: 'Recipe4' }],
+      formVals: { ...this.initialFormVals },
     };
 
     this.addRecipe = this.addRecipe.bind(this);
@@ -51,7 +58,7 @@ class App extends Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name: this.state.formVals.name }),
+      body: JSON.stringify(this.state.formVals),
     })
       .then((response) => {
         if (response.status === 200) {

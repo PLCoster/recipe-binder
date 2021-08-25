@@ -23,7 +23,7 @@ recipeController.addRecipe = async (req, res, next) => {
 
   // Add new recipe to the db
   try {
-    const result = await Recipe.create({name: req.body.name});
+    const result = await Recipe.create(req.body);
     console.log('Tried to add recipe, result: ', result);
     res.locals.addedRecipe = result;
     return next();
