@@ -43,6 +43,10 @@ app.get('/signup', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../client/signup.html'));
 });
 
+app.get('/logout', (req, res) => {
+  return res.status(200).sendFile(path.join(__dirname, '../client/logout.html'))
+});
+
 // 404 - Invalid Route Handler
 app.use('*', (req, res) => {
   res.status(404).send('Not Found');

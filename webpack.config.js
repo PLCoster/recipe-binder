@@ -44,6 +44,9 @@ module.exports = {
       '/signup': {
         target: 'http://localhost:3000/',
       },
+      '/logout': {
+        target: 'http://localhost:3000/',
+      },
     },
   },
 };

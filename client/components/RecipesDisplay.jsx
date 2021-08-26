@@ -8,20 +8,33 @@ const RecipesDisplay = ({ recipeList, addRecipe, deleteRecipe, updateFormVal, fo
   console.log('RecipeList: ', recipeList);
   for (let i = 0; i < recipeList.length; i += 1) {
     recipes.push(
-      <div class="col-sm-6">
+      <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
         <div className="card">
-          <h5 key={`recipe-${recipeList[i]._id}`}>
-            {recipeList[i].title}
+          <div className="card-body">
+            <h5
+              key={`recipe-${recipeList[i]._id}`}
+              className="card-title"
+            >
+              {recipeList[i].title}
+            </h5>
+            <h6 clasName="card-subtitle">
+              Prep. Time:
+              {recipeList[i].prepTime}
+            </h6>
+            <p className="card-text">
+              {recipeList[i].description.length > 60 ? `${recipeList[i].description.slice(60)}...` : recipeList[i].description}
+            </p>
             <Link to={`/recipe/${recipeList[i]._id}`}>
-              <button type="button">View Recipe</button>
+              <button className="card-link btn btn-sm btn-primary" type="button">View Recipe</button>
             </Link>
+
             <button
               type="submit"
               onClick={() => deleteRecipe(recipeList[i]._id)}
             >
               Delete This Recipe
             </button>
-          </h5>
+          </div>
         </div>
       </div>,
     );
