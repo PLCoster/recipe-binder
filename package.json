@@ -21,7 +21,11 @@
   "homepage": "https://github.com/PLCoster/codesmith-solo-project#readme",
   "dependencies": {
     "@popperjs/core": "^2.9.3",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "bootstrap": "^5.1.0",
+    "cookie-parser": "^1.4.5",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
     "jquery": "^3.6.0",
     "mongoose": "^6.0.0",

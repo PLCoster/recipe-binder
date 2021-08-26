@@ -2,9 +2,14 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 
 // Import express routers
 const apiRouter = require('./routes/api');
+
+// Import controllers
+const userController = require('./controllers/userController');
+const cookieController = require('./controllers/cookieController');
 
 // Create express App
 const app = express();
@@ -21,9 +26,13 @@ mongoose.connect(MONGO_URI, {
   .then(() => console.log('Connected to Mongo DB.'))
   .catch((err) => console.log(err));
 
+// Render ejs pages correctly when using res.render on ejs file
+app.set('view engine', 'ejs');
+
 // Parse body and querystrings of requests sent to server:
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser()); // -> parses cookies onto req.cookies
 
 // Serve webpack files from build folder
 app.use('/build', express.static(path.join(__dirname, '../build')));
@@ -31,20 +40,32 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 // Route Handlers
 app.use('/api', apiRouter);
 
-app.get('/', (req, res) => {
-  return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
+// Login, Logout and SignUp Routes
+app.get('/login', (req, res) => {
+  res.render('./../client/ejs/login', { error: 'OMG HUGE ERROR' });
 });
 
-app.get('/login', (req, res) => {
-  return res.status(200).sendFile(path.join(__dirname, '../client/login.html'));
+app.post('/login', userController.verifyUser, cookieController.setSSIDCookie, (req, res) => {
+  // If login is successful redirect to main app page:
+  res.redirect('/');
 });
 
 app.get('/signup', (req, res) => {
-  return res.status(200).sendFile(path.join(__dirname, '../client/signup.html'));
+  res.render('./../client/ejs/signup', { error: 'OMG HUGE ERROR' });
+});
+
+app.post('/signup', userController.createUser, cookieController.setSSIDCookie, (req, res) => {
+  // Redirect user to main app page once signed up:
+  res.redirect('/');
 });
 
 app.get('/logout', (req, res) => {
-  return res.status(200).sendFile(path.join(__dirname, '../client/logout.html'))
+  res.redirect('/login');
+});
+
+// Main App route
+app.get('/', (req, res) => {
+  return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
 });
 
 // 404 - Invalid Route Handler

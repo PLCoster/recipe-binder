@@ -1,0 +1,20 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Signup Page</title>
+</head>
+<body>
+  <h1>Signup Page</h1>
+  <form method="POST" action='/signup'>
+    <input name="email" type="email" placeholder="Email Address" required></input>
+    <input name="username" type="text" placeholder="Display Name" required></input>
+    <input name="password" type="password" placeholder="Password" required></input>
+    <input type='submit' value="Sign Up">
+  </form>
+  <div id="root"></div>
+  <% if (error) { %>
+    <div>  Error </div>
+    <div> <%= error %> </div>
+  <% } %>
+</body>
+</html>
