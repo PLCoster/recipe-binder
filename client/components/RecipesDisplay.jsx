@@ -12,21 +12,25 @@ const RecipesDisplay = ({ recipeList, fetched}) => {
       <div key={`${recipeList[i]._id}`} className="col-sm-6 col-md-4 col-lg-3 mt-3">
         <div className="card">
           <div className="card-body">
-            <h5
-              className="card-title"
-            >
-              {recipeList[i].title}
-            </h5>
-            <h6 className="card-subtitle">
-              Prep. Time:
-              {recipeList[i].prepTime}
-            </h6>
-            <p className="card-text small">
-              {recipeList[i].description.length > 60 ? `${recipeList[i].description.slice(0, 60)}...` : recipeList[i].description}
-            </p>
-            <Link to={`/recipe/${recipeList[i]._id}`}>
-              <button className="card-link btn btn-sm btn-primary" type="button">View Recipe</button>
-            </Link>
+            <div>
+              <h5
+                className="card-title"
+              >
+                {recipeList[i].title}
+              </h5>
+              <h6 className="card-subtitle small">
+                Prep. Time:
+                {recipeList[i].prepTime}
+              </h6>
+              <p className="card-text small mt-2">
+                {recipeList[i].description.length > 60 ? `${recipeList[i].description.slice(0, 60)}...` : recipeList[i].description}
+              </p>
+            </div>
+            <div className="mt-3">
+              <Link to={`/recipe/${recipeList[i]._id}`}>
+                <button className="card-link btn btn-sm btn-primary" type="button">View Recipe</button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>,

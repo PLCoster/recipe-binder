@@ -72,10 +72,3 @@ render(
   </Router>,
   document.getElementById('root'),
 );
-
-// render(
-//   <section>
-//     <h1> Is the react component rendering? </h1>
-//     <App />
-//   </section>, document.getElementById('root'),
-// );

@@ -44,7 +44,7 @@ const RecipeDisplay = () => {
         if (response.status === 200) {
           return response.json();
         }
-        throw new Error('Error when trying to add recipe via api, status: ', response.status);
+        throw new Error('Error when trying to delete recipe via api, status: ', response.status);
       })
       .then((recipeObj) => {
         // Reroute to main recipes when successfully deleted
@@ -59,6 +59,27 @@ const RecipeDisplay = () => {
   // Function to send updated recipe to server for update on DB
   const updateRecipe = () => {
     console.log('Trying to update Recipe: ', updaterDetails);
+    fetch('/api/recipe', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updaterDetails),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        throw new Error('Error when trying to update recipe via api, status: ', response.status);
+      })
+      .then((recipeObj) => {
+        // Reroute to main recipes when successfully deleted
+        console.log('Updated recipe: ', recipeObj._id);
+        if (recipeObj._id) {
+          setRedirectTo('/');
+        }
+      })
+      .catch((error) => console.error(error));
   };
 
   // Function to switch mode from view to update
@@ -71,6 +92,7 @@ const RecipeDisplay = () => {
   }, []);
 
   if (redirectTo) {
+    console.log('REDIRECTING TO: ', redirectTo);
     return <Redirect to={redirectTo} />;
   }
 
@@ -337,6 +359,12 @@ const RecipeDisplay = () => {
       </section>
     );
   }
+
+  // Should not be reachable:
+  return <h1>SOMETHING WENT WRONG!</h1>;
 };
 
 export default RecipeDisplay;
+
+// http://localhost:8080/recipe/6126fe22ac88b6c367921ffa
+// http://localhost:8080/recipe/6126fe22ac88b6c367921ffa

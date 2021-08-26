@@ -31,6 +31,7 @@ module.exports = {
     ],
   },
   devServer: {
+    historyApiFallback: true,
     static: {
       directory: path.join(__dirname, '/client'),
     },
@@ -45,6 +46,9 @@ module.exports = {
         target: 'http://localhost:3000/',
       },
       '/logout': {
+        target: 'http://localhost:3000/',
+      },
+      '/recipe': {
         target: 'http://localhost:3000/',
       },
     },

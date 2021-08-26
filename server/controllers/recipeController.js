@@ -22,7 +22,6 @@ recipeController.getRecipeDetails = async (req, res, next) => {
   // Get all recipes and return them as an array
   try {
     const result = await Recipe.findOne({ _id: req.params.id });
-    console.log('Tried to get recipe details, result: ', result);
     res.locals.recipeDetails = result;
     return next();
   } catch (err) {
@@ -66,6 +65,25 @@ recipeController.deleteRecipe = async (req, res, next) => {
     return next({
       log: `Error in recipeController.deleteRecipe: ERROR: ${err}`,
       message: { err: 'Error deleting recipe from database - see server logs' },
+    });
+  }
+};
+
+recipeController.updateRecipe = async (req, res, next) => {
+  // Get request body for item to be deleted
+  delete req.body.__v
+  console.log('Request to updateRecipe, :', req.body);
+
+  // Add new recipe to the db
+  try {
+    const result = await Recipe.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true });
+    console.log('Tried to update recipe, result: ', result);
+    res.locals.updatedRecipe = result;
+    return next();
+  } catch (err) {
+    return next({
+      log: `Error in recipeController.updateRecipe: ERROR: ${err}`,
+      message: { err: 'Error updating recipe in database - see server logs' },
     });
   }
 };
