@@ -181,8 +181,7 @@ class RecipeCreator extends Component {
               <input
                 id="newRecipePrepTime"
                 className="form-control"
-                type="text"
-                placeholder="Preparation Time"
+                type="number"
                 onChange={(e) => this.updateFormVal(e.target.value, 'prepTime')}
                 value={prepTime}
                 name="prepTime"
@@ -195,8 +194,7 @@ class RecipeCreator extends Component {
               <input
                 id="newRecipeCookTime"
                 className="form-control"
-                type="text"
-                placeholder="Cooking Time"
+                type="number"
                 onChange={(e) => this.updateFormVal(e.target.value, 'cookTime')}
                 value={cookTime}
                 name="cookTime"
@@ -209,7 +207,6 @@ class RecipeCreator extends Component {
                 id="newRecipeServings"
                 className="form-control"
                 type="number"
-                placeholder="Number of Servings"
                 onChange={(e) => this.updateFormVal(e.target.value, 'numServings')}
                 value={numServings}
                 name="numServings"

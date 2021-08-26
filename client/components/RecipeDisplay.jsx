@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Redirect} from 'react-router-dom';
 
 // Basic functional class (needs state to work properly) -> Use React Hooks
 const RecipeDisplay = () => {
   const { id } = useParams();
   const [recipeDetails, setRecipeDetails] = useState({});
   const [recipeFetched, setRecipeFetched] = useState(false);
+  const [redirectTo, setRedirectTo] = useState('');
 
   // Function that fetches recipe details from server
   const getRecipeDetails = () => {
@@ -21,12 +22,42 @@ const RecipeDisplay = () => {
         setRecipeDetails(recipeObj);
         setRecipeFetched(true);
       })
-      .catch((err => console.log(err)));
+      .catch(((err) => console.log(err)));
+  };
+
+  const deleteRecipe = () => {
+    console.log('Trying to delete recipe from DB');
+
+    fetch('/api/recipe', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id }),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        throw new Error('Error when trying to add recipe via api, status: ', response.status);
+      })
+      .then((recipeObj) => {
+        // Reroute to main recipes when successfully deleted
+        console.log('Deleted recipe: ', recipeObj._id);
+        if (recipeObj._id) {
+          setRedirectTo('/');
+        }
+      })
+      .catch((error) => console.error(error));
   };
 
   useEffect(() => {
     getRecipeDetails();
   }, []);
+
+  if (redirectTo) {
+    return <Redirect to={redirectTo} />;
+  }
 
   if (!recipeFetched) {
     return (
@@ -42,37 +73,52 @@ const RecipeDisplay = () => {
   }
 
   return (
-    <section>
-      <h2>{recipeDetails.title}</h2>
-      <h4>
-        <span>
-          Preparation Time:
-          {recipeDetails.prepTime}
+    <section id="recipe-details">
+      <h3 className="mb-1">{recipeDetails.title}</h3>
+      <p className="small mb-3">
+        {recipeDetails.privateRecipe ? 'Private Recipe' : 'Public Recipe'}
+      </p>
+
+      <h5 className="mb-3">{recipeDetails.description}</h5>
+
+      <h6 className="row mb-3">
+
+        <span className="col-md-4 col-sm-12">
+          Prep. Time:
+          {` ${recipeDetails.prepTime} mins`}
         </span>
-        <span>
+
+        <span className="col-4">
           Cooking Time:
-          {recipeDetails.cookTime}
+          {` ${recipeDetails.cookTime} mins`}
         </span>
-        <span>
+
+        <span className="col-4">
           Servings:
-          {recipeDetails.numServings}
+          {` ${recipeDetails.numServings}`}
         </span>
-        <span>
-          {recipeDetails.privateRecipe ? 'Private Recipe' : 'Public Recipe'}
-        </span>
-      </h4>
-      <h3>Ingredients: </h3>
+
+      </h6>
+
+      <h5>Ingredients: </h5>
       <ul>
-        <li>{recipeDetails.ingredients}</li>
+        {recipeDetails.ingredients.split('\n').map((ing) => <li>{ing}</li>)}
       </ul>
-      <h3>Instructions: </h3>
+
+      <h5>Instructions: </h5>
       <ol>
-        <li>{recipeDetails.instructions}</li>
+        {recipeDetails.instructions.split('\n').map((ing) => <li>{ing}</li>)}
       </ol>
-      <h4>
+
+      <p className="small">
         Recipe Id:
         {id}
-      </h4>
+      </p>
+
+      <div className="flex flex-between">
+        <button type="button" className="btn btn-sm btn-info">Update Recipe</button>
+        <button type="button" className="btn btn-sm btn-danger" onClick={deleteRecipe}>Delete Recipe</button>
+      </div>
 
     </section>
   );

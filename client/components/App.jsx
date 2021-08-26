@@ -7,9 +7,8 @@ class App extends Component {
 
     this.state = {
       recipeList: [],
+      fetched: false,
     };
-
-    this.deleteRecipe = this.deleteRecipe.bind(this);
   }
 
   componentDidMount() {
@@ -29,42 +28,19 @@ class App extends Component {
       })
       .then((recipeArr) => {
         console.log('Recipes Received: ', recipeArr);
-        this.setState({ recipeList: recipeArr });
-      })
-      .catch((error) => console.error(error));
-  }
-
-  deleteRecipe(recipeId) {
-    console.log('Trying to delete recipe from DB');
-
-    fetch('/api/recipe', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id: recipeId }),
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        }
-        throw new Error('Error when trying to add recipe via api, status: ', response.status);
-      })
-      .then((recipeObj) => {
-        // Update Recipes since one has been deleted
-        this.getRecipes();
+        this.setState({ recipeList: recipeArr, fetched: true});
       })
       .catch((error) => console.error(error));
   }
 
   render() {
-    const { recipeList, formVals } = this.state;
+    const { recipeList, fetched } = this.state;
 
     return (
       <div>
         <RecipesDisplay
           recipeList={recipeList}
-          deleteRecipe={this.deleteRecipe}
+          fetched={fetched}
         />
       </div>
     );
