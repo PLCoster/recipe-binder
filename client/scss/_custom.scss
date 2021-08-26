@@ -2,6 +2,39 @@
 ### CUSTOM STYLES
 */
 
-h1 {
-  color: red !important;
+/*
+### OVERALL STYLES
+*/
+#root {
+  background-color: #fafafa;
+  height: 100%;
+}
+
+/*
+### NAV BAR
+*/
+
+.navbar.navbar-light.bg-light {
+  background-color: #e3f2fd !important;
+  margin-bottom: 20px;
+
+  .navbar-brand {
+    color: orange;
+    border: none;
+    background-color: transparent;
+  }
+
+  .navbar-nav.ml-auto {
+    margin-left: auto;
+  }
+
+  .nav-item {
+    a {
+      text-decoration: none;
+    }
+    .nav-link {
+      border: none;
+      background-color: transparent;
+    }
+  }
 }
