@@ -60,7 +60,7 @@ app.post('/signup', userController.createUser, cookieController.setSSIDCookie, s
   res.redirect('/');
 });
 
-app.get('/logout', (req, res) => {
+app.get('/logout', sessionController.validateSession, sessionController.deleteSession, (req, res) => {
   res.redirect('/login');
 });
 

@@ -14,7 +14,7 @@ sessionController.validateSession = async (req, res, next) => {
       const result = await Session.findOne({ cookieId: req.cookies.ssid });
       // if session is not found, redirect user to login page
       if (!result) {
-        return res.redirect('/signup');
+        return res.redirect('/login');
       }
       return next();
     } catch (err) {
@@ -57,6 +57,28 @@ sessionController.startSession = async (req, res, next) => {
       message: { err: 'Error creating Session - see server logs' },
     });
   }
+};
+
+/***
+ *  deleteSession - deletes a users session so they have to log back in
+ *  in order to view the app
+ */
+sessionController.deleteSession = async (req, res, next) => {
+  // Find session based on users id
+  if (req.cookies.ssid) {
+    console.log('DELETING SESSION IN DATABASE');
+    try {
+      const result = await Session.findOneAndDelete({ cookieId: req.cookies.ssid });
+      console.log('DELETED SESSION: ', result);
+      return next();
+    } catch (err) {
+      return next({
+        log: `Error in sessionController.deleteSession: ERROR: ${err}`,
+        message: { err: 'Error deleting Session - see server logs' },
+      });
+    }
+  }
+  return next();
 };
 
 module.exports = sessionController;
