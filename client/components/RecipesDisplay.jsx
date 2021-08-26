@@ -9,16 +9,15 @@ const RecipesDisplay = ({ recipeList, fetched}) => {
   console.log('RecipeList: ', recipeList);
   for (let i = 0; i < recipeList.length; i += 1) {
     recipes.push(
-      <div className="col-sm-6 col-md-4 col-lg-3 mt-3">
+      <div key={`${recipeList[i]._id}`} className="col-sm-6 col-md-4 col-lg-3 mt-3">
         <div className="card">
           <div className="card-body">
             <h5
-              key={`recipe-${recipeList[i]._id}`}
               className="card-title"
             >
               {recipeList[i].title}
             </h5>
-            <h6 clasName="card-subtitle">
+            <h6 className="card-subtitle">
               Prep. Time:
               {recipeList[i].prepTime}
             </h6>

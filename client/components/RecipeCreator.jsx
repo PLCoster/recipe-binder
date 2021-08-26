@@ -189,7 +189,6 @@ class RecipeCreator extends Component {
               />
             </div>
 
-
             <div className="col-4">
               <input
                 id="newRecipeCookTime"
@@ -225,8 +224,8 @@ class RecipeCreator extends Component {
             <select
               id="newRecipePrivacy"
               className="form-control"
-              onChange={(e) => this.updateFormVal(e.target.value === 'true', 'private')}
-              name="private"
+              onChange={(e) => this.updateFormVal(e.target.value === 'true', 'privateRecipe')}
+              name="privateRecipe"
             >
               <option value="true" selected>Private</option>
               <option value="false">Public</option>
@@ -234,7 +233,7 @@ class RecipeCreator extends Component {
             <div id="privacyHelp" className="form-text">A private recipe can only be seen by you. Public recipes can be viewed by everyone!</div>
           </div>
 
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" className="btn btn-primary">
             Create New Recipe!
           </button>
 
