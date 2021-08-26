@@ -77,77 +77,168 @@ class RecipeCreator extends Component {
 
     return (
       <section>
-        <h4>Create a new recipe!</h4>
+        <h3>Create a new recipe:</h3>
         <form onSubmit={(e) => {
           console.log('Trying to add recipe! Event is: ', e);
           e.preventDefault();
           this.addRecipe();
         }}
         >
-          <h5>Recipe Title:</h5>
-          <input
-            type="text"
-            placeholder="Recipe Title"
-            onChange={(e) => this.updateFormVal(e.target.value, 'title')}
-            value={title}
-            name="title"
-            required
-          />
-          <textarea
-            placeholder="Recipe Description"
-            onChange={(e) => this.updateFormVal(e.target.value, 'description')}
-            value={description}
-            name="description"
-            required
-          />
-          <textarea
-            placeholder="Recipe Ingredients"
-            onChange={(e) => this.updateFormVal(e.target.value, 'ingredients')}
-            value={ingredients}
-            name="ingredients"
-            required
-          />
-          <textarea
-            placeholder="Recipe Instructions"
-            onChange={(e) => this.updateFormVal(e.target.value, 'instructions')}
-            value={instructions}
-            name="instructions"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Preparation Time"
-            onChange={(e) => this.updateFormVal(e.target.value, 'prepTime')}
-            value={prepTime}
-            name="prepTime"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Cooking Time"
-            onChange={(e) => this.updateFormVal(e.target.value, 'cookTime')}
-            value={cookTime}
-            name="cookTime"
-            required
-          />
-          <input
-            type="number"
-            placeholder="Number of Servings"
-            onChange={(e) => this.updateFormVal(e.target.value, 'numServings')}
-            value={numServings}
-            name="numServings"
-            required
-          />
-          <select
-            onChange={(e) => this.updateFormVal(e.target.value === 'true', 'private')}
-            name="private"
-          >
-            <option value="true" selected>Private</option>
-            <option value="false">Public</option>
-          </select>
+          <div className="mb-3 mt-3">
+            <label
+              htmlFor="newRecipeTitle"
+              className="form-label"
+            >
+              Recipe Title:
+            </label>
+            <input
+              type="text"
+              id="newRecipeTitle"
+              className="form-control"
+              placeholder="Recipe Title"
+              onChange={(e) => this.updateFormVal(e.target.value, 'title')}
+              value={title}
+              name="title"
+              required
+            />
+          </div>
 
-          <button type="submit">
-            Add a Recipe!
+          <div className="mb-3">
+            <label
+              htmlFor="newRecipeDescription"
+              className="form-label"
+            >
+              Recipe Description:
+            </label>
+            <textarea
+              id="newRecipeDescription"
+              className="form-control"
+              placeholder="Recipe Description"
+              onChange={(e) => this.updateFormVal(e.target.value, 'description')}
+              value={description}
+              name="description"
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label
+              htmlFor="newRecipeIngredients"
+              className="form-label"
+            >
+              Recipe Ingredients:
+            </label>
+            <textarea
+              id="newRecipeIngredients"
+              className="form-control"
+              placeholder="Recipe Ingredients"
+              onChange={(e) => this.updateFormVal(e.target.value, 'ingredients')}
+              value={ingredients}
+              name="ingredients"
+              required
+            />
+            <div id="descriptionHelp" className="form-text">Write each ingredient on a separate line. Remember to include quantities!</div>
+          </div>
+
+          <div className="mb-3">
+            <label
+              htmlFor="newRecipeInstructions"
+              className="form-label"
+            >
+              Recipe Instructions:
+            </label>
+            <textarea
+              id="newRecipeInstructions"
+              className="form-control"
+              placeholder="Recipe Instructions"
+              onChange={(e) => this.updateFormVal(e.target.value, 'instructions')}
+              value={instructions}
+              name="instructions"
+              required
+            />
+            <div id="instructionHelp" className="form-text">Write each step on a separate line - no need to number steps.</div>
+          </div>
+
+          <div className="row mb-3">
+            <label className="col-4"
+                htmlFor="newRecipePrepTime"
+              >
+              Prep Time (mins):
+            </label>
+
+            <label className="col-4"
+                htmlFor="newRecipeCookTime"
+              >
+              Cook Time (mins):
+            </label>
+
+            <label className="col-4"
+                htmlFor="newRecipeServings"
+              >
+              Number of Servings:
+            </label>
+            <div className="col-4">
+              <input
+                id="newRecipePrepTime"
+                className="form-control"
+                type="text"
+                placeholder="Preparation Time"
+                onChange={(e) => this.updateFormVal(e.target.value, 'prepTime')}
+                value={prepTime}
+                name="prepTime"
+                required
+              />
+            </div>
+
+
+            <div className="col-4">
+              <input
+                id="newRecipeCookTime"
+                className="form-control"
+                type="text"
+                placeholder="Cooking Time"
+                onChange={(e) => this.updateFormVal(e.target.value, 'cookTime')}
+                value={cookTime}
+                name="cookTime"
+                required
+              />
+            </div>
+
+            <div className="col-4">
+              <input
+                id="newRecipeServings"
+                className="form-control"
+                type="number"
+                placeholder="Number of Servings"
+                onChange={(e) => this.updateFormVal(e.target.value, 'numServings')}
+                value={numServings}
+                name="numServings"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="mb-3">
+            <label
+                htmlFor="newRecipePrivacy"
+                className="form-label"
+              >
+              Choose Recipe Privacy:
+            </label>
+            <select
+              id="newRecipePrivacy"
+              className="form-control"
+              onChange={(e) => this.updateFormVal(e.target.value === 'true', 'private')}
+              name="private"
+            >
+              <option value="true" selected>Private</option>
+              <option value="false">Public</option>
+            </select>
+            <div id="privacyHelp" className="form-text">A private recipe can only be seen by you. Public recipes can be viewed by everyone!</div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            Create New Recipe!
           </button>
 
         </form>
