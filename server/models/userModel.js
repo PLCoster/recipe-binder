@@ -1,20 +1,19 @@
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
 // set bcrypt salt parameter
 const SALT_WORK_FACTOR = 10; // -> hashing salt + password 2^10 times
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
-  email: { type: String, required: true, unique: true},
+  email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 });
 
 userSchema.pre('save', function (next) {
   // Inside middleware 'this' is the model being saved
-  //console.log('MONGOOSE MIDDLEWARE THIS:', this);
-  var user = this;
+  // console.log('MONGOOSE MIDDLEWARE THIS:', this);
+  const user = this;
 
   // Encrypt password with bcrypt before moving to next mongoose middleware
   // Generate bcrypt salt

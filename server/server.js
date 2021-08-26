@@ -10,6 +10,7 @@ const apiRouter = require('./routes/api');
 // Import controllers
 const userController = require('./controllers/userController');
 const cookieController = require('./controllers/cookieController');
+const sessionController = require('./controllers/sessionController');
 
 // Create express App
 const app = express();
@@ -45,7 +46,7 @@ app.get('/login', (req, res) => {
   res.render('./../client/ejs/login', { error: 'OMG HUGE ERROR' });
 });
 
-app.post('/login', userController.verifyUser, cookieController.setSSIDCookie, (req, res) => {
+app.post('/login', userController.verifyUser, cookieController.setSSIDCookie, sessionController.startSession, (req, res) => {
   // If login is successful redirect to main app page:
   res.redirect('/');
 });
@@ -54,7 +55,7 @@ app.get('/signup', (req, res) => {
   res.render('./../client/ejs/signup', { error: 'OMG HUGE ERROR' });
 });
 
-app.post('/signup', userController.createUser, cookieController.setSSIDCookie, (req, res) => {
+app.post('/signup', userController.createUser, cookieController.setSSIDCookie, sessionController.startSession, (req, res) => {
   // Redirect user to main app page once signed up:
   res.redirect('/');
 });
