@@ -3,9 +3,11 @@ const Recipe = require('../models/recipeModel');
 const recipeController = {};
 
 recipeController.getRecipes = async (req, res, next) => {
-  // Get all recipes and return them as an array
+  // Get all recipes by user and returns them in an array
   try {
-    const result = await Recipe.find({});
+    console.log(req.cookies);
+    const { ssid } = req.cookies;
+    const result = await Recipe.find({ userID: ssid });
     console.log('Tried to get recipes, result: ', result);
     res.locals.recipes = result;
     return next();
@@ -35,11 +37,11 @@ recipeController.getRecipeDetails = async (req, res, next) => {
 
 recipeController.addRecipe = async (req, res, next) => {
   // Get request body for DB input
-  console.log('Request to addRecipe, :', req.body);
+  console.log('Request to addRecipe, :', req.body, req.cookies.ssid);
 
   // Add new recipe to the db
   try {
-    const result = await Recipe.create(req.body);
+    const result = await Recipe.create({...req.body, userID: req.cookies.ssid });
     console.log('Tried to add recipe, result: ', result);
     res.locals.addedRecipe = result;
     return next();

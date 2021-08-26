@@ -40,7 +40,7 @@ const RecipesDisplay = ({ recipeList, fetched}) => {
   if (!fetched) {
     return (
       <div className="recipesDisplay">
-        <h3>All Recipes: </h3>
+        <h3>Your Recipes: </h3>
         <div className="row">
           Loading recipes...
         </div>
@@ -50,7 +50,7 @@ const RecipesDisplay = ({ recipeList, fetched}) => {
 
   return (
     <div className="recipesDisplay">
-      <h3>All Recipes: </h3>
+      <h3>Your Recipes: </h3>
       <div className="row">
         {recipes.length ? recipes : 'No recipes yet! Try adding some!'}
       </div>

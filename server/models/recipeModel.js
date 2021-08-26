@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 // Schema for recipe document in mongoDB
 const recipeSchema = new mongoose.Schema({
+  userID: { type: String, required: true },
   title: { type: String, required: true },
   description: { type: String, required: true },
   ingredients: { type: String, required: true },
