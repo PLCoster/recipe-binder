@@ -64,8 +64,9 @@ app.get('/logout', (req, res) => {
   res.redirect('/login');
 });
 
-// Main App route
-app.get('/', (req, res) => {
+// Main App route only accessible if logged in
+app.get('/', sessionController.validateSession, (req, res) => {
+  console.log('SENDING MAIN APP PAGE');
   return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
 });
 

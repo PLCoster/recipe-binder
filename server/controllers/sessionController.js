@@ -24,6 +24,8 @@ sessionController.validateSession = async (req, res, next) => {
       });
     }
   }
+  console.log('USER NOT LOGGED IN, RETURNING TO LOGIN PAGE');
+  return res.redirect('/login');
 };
 
 /*

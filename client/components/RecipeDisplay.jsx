@@ -13,8 +13,11 @@ const RecipeDisplay = () => {
 
   // Function that fetches recipe details from server
   const getRecipeDetails = () => {
-    fetch(`/api/recipe/${id}`)
+    fetch(`/api/recipe/${id}`, { redirect: 'follow' })
       .then((response) => {
+        if (response.redirected) {
+          window.location.href = response.url;
+        }
         if (response.status === 200) {
           return response.json();
         }
@@ -38,9 +41,13 @@ const RecipeDisplay = () => {
       headers: {
         'Content-Type': 'application/json',
       },
+      redirect: 'follow',
       body: JSON.stringify({ id }),
     })
       .then((response) => {
+        if (response.redirected) {
+          window.location.href = response.url;
+        }
         if (response.status === 200) {
           return response.json();
         }
@@ -64,9 +71,13 @@ const RecipeDisplay = () => {
       headers: {
         'Content-Type': 'application/json',
       },
+      redirect: 'follow',
       body: JSON.stringify(updaterDetails),
     })
       .then((response) => {
+        if (response.redirected) {
+          window.location.href = response.url;
+        }
         if (response.status === 200) {
           return response.json();
         }

@@ -19,8 +19,14 @@ class App extends Component {
   // Function to get all recipes from DB via API call:
   getRecipes() {
     console.log('Trying to get Recipes, this.state: ', this.state);
-    fetch('/api/')
+    fetch('/api/', { redirect: 'follow' })
       .then((response) => {
+        console.log(response.redirected);
+        if (response.redirected) {
+          console.log('REDIRECTING TO: ', response.url);
+          window.location.href = response.url;
+        }
+        console.log('GET RECIPES RESPONSE: ', response);
         if (response.status === 200) {
           return response.json();
         }

@@ -31,9 +31,13 @@ class RecipeCreator extends Component {
       headers: {
         'Content-Type': 'application/json',
       },
+      redirect: 'follow',
       body: JSON.stringify(this.state.formVals),
     })
       .then((response) => {
+        if (response.redirected) {
+          window.location.href = response.url;
+        }
         if (response.status === 200) {
           return response.json();
         }
