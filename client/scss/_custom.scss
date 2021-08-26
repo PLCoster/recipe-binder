@@ -67,6 +67,19 @@ body {
 ### CARDS
 */
 
+.card {
+  height: 100%;
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+}
 
 /*
 ### RECIPE DETAILS
