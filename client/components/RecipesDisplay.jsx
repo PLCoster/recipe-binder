@@ -13,6 +13,15 @@ const RecipesDisplay = ({ recipeList, fetched}) => {
         <div className="card">
           <div className="card-body">
             <div>
+              {recipeList[i].image
+                ? (
+                  <img
+                    src={`/public/uploads${recipeList[i].image}`}
+                    className="card-img-top"
+                    alt="Recipe"
+                  />
+                )
+                : undefined}
               <h5
                 className="card-title"
               >

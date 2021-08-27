@@ -37,10 +37,13 @@ recipeController.getRecipeDetails = async (req, res, next) => {
 
 recipeController.addRecipe = async (req, res, next) => {
   // Get request body for DB input
-  console.log('Request to addRecipe, :', req.body, req.cookies.ssid);
+  console.log('Request to addRecipe, :', req.body, req.file);
 
   // Add new recipe to the db
   try {
+    if (req.file) {
+      req.body.image = req.file.filename;
+    }
     const result = await Recipe.create({...req.body, userID: req.cookies.ssid });
     console.log('Tried to add recipe, result: ', result);
     res.locals.addedRecipe = result;

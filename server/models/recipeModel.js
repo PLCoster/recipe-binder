@@ -11,7 +11,7 @@ const recipeSchema = new mongoose.Schema({
   cookTime: { type: Number, required: true },
   numServings: { type: Number, required: true },
   privateRecipe: { type: Boolean, required: true },
-  image: { type: Buffer },
+  image: { type: String },
 });
 
 module.exports = mongoose.model('recipe', recipeSchema);

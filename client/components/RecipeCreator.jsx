@@ -15,6 +15,7 @@ class RecipeCreator extends Component {
       cookTime: '',
       numServings: '',
       privateRecipe: true,
+      image: null,
     };
 
     this.state = { redirectTo: '', formVals: { ...this.initialFormVals } };
@@ -24,15 +25,16 @@ class RecipeCreator extends Component {
 
   // Function to add recipe to the DB from inputted form data
   addRecipe() {
-    console.log('Trying to add a new recipe to DB', this.state.formVals);
+    const formData = new FormData();
+
+    Object.keys(this.state.formVals).forEach(name => {
+      formData.append(name, this.state.formVals[name]);
+    });
 
     fetch('/api/recipe', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       redirect: 'follow',
-      body: JSON.stringify(this.state.formVals),
+      body: formData,
     })
       .then((response) => {
         if (response.redirected) {
@@ -235,6 +237,25 @@ class RecipeCreator extends Component {
               <option value="false">Public</option>
             </select>
             <div id="privacyHelp" className="form-text">A private recipe can only be seen by you. Public recipes can be viewed by everyone!</div>
+          </div>
+
+          <div className="mb-3 mt-3">
+            <label
+              htmlFor="newRecipeImage"
+              className="form-label"
+            >
+              Image of your Recipe (Optional):
+            </label>
+            <input
+              type="file"
+              id="newRecipeImage"
+              className="form-control"
+              onChange={(e) => {
+                console.log(e);
+                this.updateFormVal(e.target.files[0], 'image');
+              }}
+              name="image"
+            />
           </div>
 
           <button type="submit" className="btn btn-primary">

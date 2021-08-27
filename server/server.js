@@ -31,6 +31,7 @@ mongoose.connect(MONGO_URI, {
 app.set('view engine', 'ejs');
 
 // Parse body and querystrings of requests sent to server:
+app.use('/public', express.static('./public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser()); // -> parses cookies onto req.cookies
