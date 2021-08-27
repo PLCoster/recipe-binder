@@ -16,7 +16,7 @@ const RecipesDisplay = ({ recipeList, fetched}) => {
               {recipeList[i].image
                 ? (
                   <img
-                    src={`/public/uploads${recipeList[i].image}`}
+                    src={`/public/uploads/${recipeList[i].image}`}
                     className="card-img-top"
                     alt="Recipe"
                   />
