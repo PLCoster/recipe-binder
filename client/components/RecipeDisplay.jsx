@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Redirect} from 'react-router-dom';
+import { useParams, Redirect } from 'react-router-dom';
 import Select from 'react-select';
 
 // Displays Recipe Details, allows deletion and editing
 const RecipeDisplay = () => {
+  console.log('RECIPE DISPLAY COMPONENT HERE!');
   const { id } = useParams();
   const [recipeDetails, setRecipeDetails] = useState({});
   const [recipeFetched, setRecipeFetched] = useState(false);
@@ -21,15 +22,18 @@ const RecipeDisplay = () => {
         if (response.status === 200) {
           return response.json();
         }
-        throw new Error('Error when trying to get recipe details, status: ', response.status);
+        throw new Error(
+          'Error when trying to get recipe details, status: ',
+          response.status
+        );
       })
-      .then(recipeObj => {
+      .then((recipeObj) => {
         console.log('Got recipe details: ', recipeObj);
         setRecipeDetails(recipeObj);
         setRecipeFetched(true);
         setUpdaterDetails(recipeObj);
       })
-      .catch(((err) => console.log(err)));
+      .catch((err) => console.log(err));
   };
 
   // Function to delete recipe currently viewed from DB
@@ -51,7 +55,10 @@ const RecipeDisplay = () => {
         if (response.status === 200) {
           return response.json();
         }
-        throw new Error('Error when trying to delete recipe via api, status: ', response.status);
+        throw new Error(
+          'Error when trying to delete recipe via api, status: ',
+          response.status
+        );
       })
       .then((recipeObj) => {
         // Reroute to main recipes when successfully deleted
@@ -81,7 +88,10 @@ const RecipeDisplay = () => {
         if (response.status === 200) {
           return response.json();
         }
-        throw new Error('Error when trying to update recipe via api, status: ', response.status);
+        throw new Error(
+          'Error when trying to update recipe via api, status: ',
+          response.status
+        );
       })
       .then((recipeObj) => {
         // Reroute to main recipes when successfully deleted
@@ -122,7 +132,8 @@ const RecipeDisplay = () => {
     return <h1>Couldn&apos;t find recipe details, try again!</h1>;
   }
 
-  const { title,
+  const {
+    title,
     description,
     prepTime,
     cookTime,
@@ -162,12 +173,16 @@ const RecipeDisplay = () => {
 
         <h5>Ingredients: </h5>
         <ul>
-          {ingredients.split('\n').map((ing) => <li>{ing}</li>)}
+          {ingredients.split('\n').map((ing) => (
+            <li>{ing}</li>
+          ))}
         </ul>
 
         <h5>Instructions: </h5>
         <ol>
-          {instructions.split('\n').map((ing) => <li>{ing}</li>)}
+          {instructions.split('\n').map((ing) => (
+            <li>{ing}</li>
+          ))}
         </ol>
 
         <p className="small">
@@ -176,10 +191,21 @@ const RecipeDisplay = () => {
         </p>
 
         <div className="flex flex-between">
-          <button type="button" className="btn btn-sm btn-info" onClick={updateToggle}>Update Recipe</button>
-          <button type="button" className="btn btn-sm btn-danger" onClick={deleteRecipe}>Delete Recipe</button>
+          <button
+            type="button"
+            className="btn btn-sm btn-info"
+            onClick={updateToggle}
+          >
+            Update Recipe
+          </button>
+          <button
+            type="button"
+            className="btn btn-sm btn-danger"
+            onClick={deleteRecipe}
+          >
+            Delete Recipe
+          </button>
         </div>
-
       </section>
     );
   }
@@ -189,17 +215,15 @@ const RecipeDisplay = () => {
     return (
       <section>
         <h3>Update Your Recipe:</h3>
-        <form onSubmit={(e) => {
-          console.log('Trying to add recipe! Event is: ', e);
-          e.preventDefault();
-          updateRecipe();
-        }}
+        <form
+          onSubmit={(e) => {
+            console.log('Trying to add recipe! Event is: ', e);
+            e.preventDefault();
+            updateRecipe();
+          }}
         >
           <div className="mb-3 mt-3">
-            <label
-              htmlFor="newRecipeTitle"
-              className="form-label"
-            >
+            <label htmlFor="newRecipeTitle" className="form-label">
               Recipe Title:
             </label>
             <input
@@ -217,10 +241,7 @@ const RecipeDisplay = () => {
           </div>
 
           <div className="mb-3">
-            <label
-              htmlFor="newRecipeDescription"
-              className="form-label"
-            >
+            <label htmlFor="newRecipeDescription" className="form-label">
               Recipe Description:
             </label>
             <textarea
@@ -228,7 +249,10 @@ const RecipeDisplay = () => {
               className="form-control"
               placeholder="Recipe Description"
               onChange={(e) => {
-                setUpdaterDetails({ ...updaterDetails, description: e.target.value });
+                setUpdaterDetails({
+                  ...updaterDetails,
+                  description: e.target.value,
+                });
               }}
               defaultValue={description}
               name="description"
@@ -237,10 +261,7 @@ const RecipeDisplay = () => {
           </div>
 
           <div className="mb-3">
-            <label
-              htmlFor="newRecipeIngredients"
-              className="form-label"
-            >
+            <label htmlFor="newRecipeIngredients" className="form-label">
               Recipe Ingredients:
             </label>
             <textarea
@@ -248,20 +269,23 @@ const RecipeDisplay = () => {
               className="form-control"
               placeholder="Recipe Ingredients"
               onChange={(e) => {
-                setUpdaterDetails({ ...updaterDetails, ingredients: e.target.value });
+                setUpdaterDetails({
+                  ...updaterDetails,
+                  ingredients: e.target.value,
+                });
               }}
               defaultValue={ingredients}
               name="ingredients"
               required
             />
-            <div id="descriptionHelp" className="form-text">Write each ingredient on a separate line. Remember to include quantities!</div>
+            <div id="descriptionHelp" className="form-text">
+              Write each ingredient on a separate line. Remember to include
+              quantities!
+            </div>
           </div>
 
           <div className="mb-3">
-            <label
-              htmlFor="newRecipeInstructions"
-              className="form-label"
-            >
+            <label htmlFor="newRecipeInstructions" className="form-label">
               Recipe Instructions:
             </label>
             <textarea
@@ -269,31 +293,30 @@ const RecipeDisplay = () => {
               className="form-control"
               placeholder="Recipe Instructions"
               onChange={(e) => {
-                setUpdaterDetails({ ...updaterDetails, instructions: e.target.value });
+                setUpdaterDetails({
+                  ...updaterDetails,
+                  instructions: e.target.value,
+                });
               }}
               defaultValue={instructions}
               name="instructions"
               required
             />
-            <div id="instructionHelp" className="form-text">Write each step on a separate line - no need to number steps.</div>
+            <div id="instructionHelp" className="form-text">
+              Write each step on a separate line - no need to number steps.
+            </div>
           </div>
 
           <div className="row mb-3">
-            <label className="col-4"
-                htmlFor="newRecipePrepTime"
-              >
+            <label className="col-4" htmlFor="newRecipePrepTime">
               Prep Time (mins):
             </label>
 
-            <label className="col-4"
-                htmlFor="newRecipeCookTime"
-              >
+            <label className="col-4" htmlFor="newRecipeCookTime">
               Cook Time (mins):
             </label>
 
-            <label className="col-4"
-                htmlFor="newRecipeServings"
-              >
+            <label className="col-4" htmlFor="newRecipeServings">
               Number of Servings:
             </label>
             <div className="col-4">
@@ -302,7 +325,10 @@ const RecipeDisplay = () => {
                 className="form-control"
                 type="number"
                 onChange={(e) => {
-                  setUpdaterDetails({ ...updaterDetails, prepTime: e.target.value });
+                  setUpdaterDetails({
+                    ...updaterDetails,
+                    prepTime: e.target.value,
+                  });
                 }}
                 defaultValue={prepTime}
                 name="prepTime"
@@ -316,7 +342,10 @@ const RecipeDisplay = () => {
                 className="form-control"
                 type="number"
                 onChange={(e) => {
-                  setUpdaterDetails({ ...updaterDetails, cookTime: e.target.value });
+                  setUpdaterDetails({
+                    ...updaterDetails,
+                    cookTime: e.target.value,
+                  });
                 }}
                 defaultValue={cookTime}
                 name="cookTime"
@@ -330,7 +359,10 @@ const RecipeDisplay = () => {
                 className="form-control"
                 type="number"
                 onChange={(e) => {
-                  setUpdaterDetails({ ...updaterDetails, numServings: e.target.value });
+                  setUpdaterDetails({
+                    ...updaterDetails,
+                    numServings: e.target.value,
+                  });
                 }}
                 defaultValue={numServings}
                 name="numServings"
@@ -340,10 +372,7 @@ const RecipeDisplay = () => {
           </div>
 
           <div className="mb-3">
-            <label
-              htmlFor="newRecipePrivacy"
-              className="form-label"
-            >
+            <label htmlFor="newRecipePrivacy" className="form-label">
               Choose Recipe Privacy:
             </label>
             <Select
@@ -351,21 +380,31 @@ const RecipeDisplay = () => {
               className="form-control"
               onChange={(e) => {
                 console.log('Select Event: ', e);
-                setUpdaterDetails({ ...updaterDetails, privateRecipe: e.value === 'true' });
+                setUpdaterDetails({
+                  ...updaterDetails,
+                  privateRecipe: e.value === 'true',
+                });
               }}
-              options={[{ label: 'Private', value: 'true' }, { label: 'Public', value: 'false' }]}
-              defaultValue={privateRecipe
-                ? { label: 'Private', value: 'true' }
-                : { label: 'Public', value: 'false' }}
+              options={[
+                { label: 'Private', value: 'true' },
+                { label: 'Public', value: 'false' },
+              ]}
+              defaultValue={
+                privateRecipe
+                  ? { label: 'Private', value: 'true' }
+                  : { label: 'Public', value: 'false' }
+              }
               name="privateRecipe"
             />
-            <div id="privacyHelp" className="form-text">A private recipe can only be seen by you. Public recipes can be viewed by everyone!</div>
+            <div id="privacyHelp" className="form-text">
+              A private recipe can only be seen by you. Public recipes can be
+              viewed by everyone!
+            </div>
           </div>
 
           <button type="submit" className="btn btn-info">
             Update Recipe
           </button>
-
         </form>
       </section>
     );

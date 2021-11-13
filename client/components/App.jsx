@@ -1,56 +1,32 @@
-import React, { Component } from 'react';
-import RecipesDisplay from './RecipesDisplay.jsx';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+import Navbar from './Navbar';
+import Home from './Home';
+import RecipeCreator from './RecipeCreator';
+import RecipeDisplay from './RecipeDisplay';
 
-    this.state = {
-      recipeList: [],
-      fetched: false,
-    };
-  }
-
-  componentDidMount() {
-    // Get initial list of recipes:
-    this.getRecipes();
-  }
-
-  // Function to get all recipes from DB via API call:
-  getRecipes() {
-    console.log('Trying to get Recipes, this.state: ', this.state);
-    fetch('/api/', { redirect: 'follow' })
-      .then((response) => {
-        console.log(response.redirected);
-        if (response.redirected) {
-          console.log('REDIRECTING TO: ', response.url);
-          window.location.href = response.url;
-        }
-        console.log('GET RECIPES RESPONSE: ', response);
-        if (response.status === 200) {
-          return response.json();
-        }
-        throw new Error('Error when trying to get recipes from api, status: ', response.status);
-      })
-      .then((recipeArr) => {
-        console.log('Recipes Received: ', recipeArr);
-        this.setState({ recipeList: recipeArr, fetched: true});
-      })
-      .catch((error) => console.error(error));
-  }
-
-  render() {
-    const { recipeList, fetched } = this.state;
-
-    return (
-      <div>
-        <RecipesDisplay
-          recipeList={recipeList}
-          fetched={fetched}
-        />
+const App = () => (
+  <Router>
+    <div>
+      <Navbar />
+      {/* A <Switch> looks through its children <Route>s and
+              renders the first one that matches the current URL. */}
+      <div className="container">
+        <Switch>
+          <Route path="/addRecipe">
+            <RecipeCreator />
+          </Route>
+          <Route path="/recipe/:id">
+            <RecipeDisplay />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
       </div>
-    );
-  }
-}
+    </div>
+  </Router>
+);
 
 export default App;

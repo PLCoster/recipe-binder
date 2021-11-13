@@ -29,7 +29,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
     // sets the name of the DB that our collections are part of
-    dbName: 'recipe-binder',
+    dbName: process.env.DB_NAME,
   })
   .then(() => console.log('Connected to Mongo DB.'))
   .catch((err) => console.log(err));
