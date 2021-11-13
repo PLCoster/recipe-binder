@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+const dotEnv = require('dotenv').config();
 
 // Import express routers
 const apiRouter = require('./routes/api');
@@ -16,14 +17,20 @@ const sessionController = require('./controllers/sessionController');
 const app = express();
 
 // Connect to MongoDB Database via Mongoose:
-const MONGO_URI = 'mongodb+srv://SWAdmin:bnOeCDErmUl1C4DM@cluster0.tf5mb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
-mongoose.connect(MONGO_URI, {
-  // options for the connect method to parse the URI
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  // sets the name of the DB that our collections are part of
-  dbName: 'cs-solo-db',
-})
+// const MONGO_URI =
+//   'mongodb+srv://SWAdmin:bnOeCDErmUl1C4DM@cluster0.tf5mb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const MONGO_URI = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASS}@cluster0.tf5mb.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+
+console.log('MONGO_URI IS: ', MONGO_URI);
+
+mongoose
+  .connect(MONGO_URI, {
+    // options for the connect method to parse the URI
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    // sets the name of the DB that our collections are part of
+    dbName: 'recipe-binder',
+  })
   .then(() => console.log('Connected to Mongo DB.'))
   .catch((err) => console.log(err));
 
@@ -47,23 +54,40 @@ app.get('/login', (req, res) => {
   res.render('./../client/ejs/login', { error: 'OMG HUGE ERROR' });
 });
 
-app.post('/login', userController.verifyUser, cookieController.setSSIDCookie, sessionController.startSession, (req, res) => {
-  // If login is successful redirect to main app page:
-  res.redirect('/');
-});
+app.post(
+  '/login',
+  userController.verifyUser,
+  cookieController.setSSIDCookie,
+  sessionController.startSession,
+  (req, res) => {
+    // If login is successful redirect to main app page:
+    res.redirect('/');
+  }
+);
 
 app.get('/signup', (req, res) => {
   res.render('./../client/ejs/signup', { error: 'OMG HUGE ERROR' });
 });
 
-app.post('/signup', userController.createUser, cookieController.setSSIDCookie, sessionController.startSession, (req, res) => {
-  // Redirect user to main app page once signed up:
-  res.redirect('/');
-});
+app.post(
+  '/signup',
+  userController.createUser,
+  cookieController.setSSIDCookie,
+  sessionController.startSession,
+  (req, res) => {
+    // Redirect user to main app page once signed up:
+    res.redirect('/');
+  }
+);
 
-app.get('/logout', sessionController.validateSession, sessionController.deleteSession, (req, res) => {
-  res.redirect('/login');
-});
+app.get(
+  '/logout',
+  sessionController.validateSession,
+  sessionController.deleteSession,
+  (req, res) => {
+    res.redirect('/login');
+  }
+);
 
 // Main App route only accessible if logged in
 app.get('/', sessionController.validateSession, (req, res) => {
@@ -89,4 +113,6 @@ app.use((err, req, res, next) => {
 });
 
 // Start App listening on port 3000
-app.listen(3000, () => { console.log('Listening on port 3000'); });
+app.listen(3000, () => {
+  console.log('Listening on port 3000');
+});
