@@ -139,6 +139,7 @@ dist
 
 package-lock.json
 
-# Ignore public/uploads folder for images
+# Ignore build folder and public/uploads folder for images
 
+build/
 public/uploads
