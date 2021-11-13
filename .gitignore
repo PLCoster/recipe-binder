@@ -135,6 +135,10 @@ dist
 
 .tern-port
 
+# Ignore package-lock.json:
+
+package-lock.json
+
 # Ignore public/uploads folder for images
 
 public/uploads
