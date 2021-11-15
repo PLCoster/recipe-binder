@@ -1,21 +1,33 @@
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Signup Page</title>
-</head>
-<body>
-  <h1>Signup Page</h1>
-  <form method="POST" action='/signup'>
-    <input name="email" type="email" placeholder="Email Address" required></input>
-    <input name="username" type="text" placeholder="Display Name" required></input>
-    <input name="password" type="password" placeholder="Password" required></input>
-    <input type='submit' value="Sign Up">
-  </form>
-  <a href="/login">Already have an account? Log In Here!</a>
-  <div id="root"></div>
-  <% if (error) { %>
-    <div>  Error </div>
-    <div> <%= error %> </div>
-  <% } %>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Recipe-Binder: Sign Up</title>
+
+    <!-- FONTAWESOME ICONS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+    <link href="/public/styles/login.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="login-flex flex-col flex-j-start flex-a-center">
+      <div class="login-container border-custom-1">
+        <div class="login-logo">
+          <p><i class="fas fa-utensils"></i></p>
+          <h1>recipe-binder</h1>
+        </div>
+        <form class="login-form" method="POST" action='/signup'>
+          <% if (error) { %>
+            <div class="login-error"> <%= error %> </div>
+          <% } %>
+          <input class="bg-custom-1 border-custom-1" name="email" type="email" placeholder="Email Address" required></input>
+          <input class="bg-custom-1 border-custom-1" name="username" type="text" placeholder="Display Name" required></input>
+          <input class="bg-custom-1 border-custom-1" name="password" type="password" placeholder="Password" required></input>
+          <input class="btn" type='submit' value="Sign Up">
+        </form>
+        <a href="/login">Already have an account? Log In Here!</a>
+      </div>
+    </div>
+  </body>
+
 </html>
