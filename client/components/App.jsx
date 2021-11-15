@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import Home from './Home';
 import RecipeCreator from './RecipeCreator';
 import RecipeDisplay from './RecipeDisplay';
+import NotFound from './NotFound';
 
 const App = () => (
   <Router>
@@ -20,8 +21,11 @@ const App = () => (
           <Route path="/recipe/:id">
             <RecipeDisplay />
           </Route>
-          <Route path="/">
+          <Route exact path="/">
             <Home />
+          </Route>
+          <Route path="*">
+            <NotFound />
           </Route>
         </Switch>
       </div>

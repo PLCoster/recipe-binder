@@ -87,7 +87,7 @@ app.get(
 );
 
 // Main App route only accessible if logged in
-app.get('/', sessionController.validateSession, (req, res) => {
+app.get('*', sessionController.validateSession, (req, res) => {
   console.log('SENDING MAIN APP PAGE');
   return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
 });
