@@ -1,8 +1,6 @@
 const path = require('path');
 // const { ModuleFilenameHelpers } = require('webpack');
 
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-
 // Webpack config settings export
 
 module.exports = {
@@ -49,6 +47,9 @@ module.exports = {
         target: 'http://localhost:3000/',
       },
       '/recipe': {
+        target: 'http://localhost:3000/',
+      },
+      '/public': {
         target: 'http://localhost:3000/',
       },
     },

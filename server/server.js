@@ -50,8 +50,8 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 app.use('/api', apiRouter);
 
 // Login, Logout and SignUp Routes
-app.get('/login', (req, res) => {
-  res.render('./../client/ejs/login', { error: 'OMG HUGE ERROR' });
+app.get('/login/:error?', (req, res) => {
+  res.render('./../client/ejs/login', { error: req.params.error });
 });
 
 app.post(
