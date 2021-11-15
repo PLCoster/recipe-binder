@@ -1,13 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUtensils } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => (
   <nav className="navbar navbar-expand-sm navbar-light bg-light">
     {/* {NAVBAR LEFT} */}
     <div className="container-fluid">
       <Link to="/">
+        <FontAwesomeIcon id="Logo" icon={faUtensils} />
         <button type="button" className="navbar-brand">
-          paulRecipes
+          recipe-binder
         </button>
       </Link>
       <button
