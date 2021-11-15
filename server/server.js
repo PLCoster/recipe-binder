@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const dotEnv = require('dotenv').config();
+require('dotenv').config();
 
 // Import express routers
 const apiRouter = require('./routes/api');
@@ -17,11 +17,7 @@ const sessionController = require('./controllers/sessionController');
 const app = express();
 
 // Connect to MongoDB Database via Mongoose:
-// const MONGO_URI =
-//   'mongodb+srv://SWAdmin:bnOeCDErmUl1C4DM@cluster0.tf5mb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 const MONGO_URI = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASS}@cluster0.tf5mb.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
-
-console.log('MONGO_URI IS: ', MONGO_URI);
 
 mongoose
   .connect(MONGO_URI, {
@@ -65,12 +61,13 @@ app.post(
   }
 );
 
-app.get('/signup', (req, res) => {
-  res.render('./../client/ejs/signup', { error: 'OMG HUGE ERROR' });
+app.get('/signup/:error?', (req, res) => {
+  res.render('./../client/ejs/signup', { error: req.params.error });
 });
 
 app.post(
   '/signup',
+  userController.checkEmailExists,
   userController.createUser,
   cookieController.setSSIDCookie,
   sessionController.startSession,
