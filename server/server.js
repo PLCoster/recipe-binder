@@ -53,8 +53,8 @@ app.get('/login/:error?', (req, res) => {
 app.post(
   '/login',
   userController.verifyUser,
-  cookieController.setSSIDCookie,
   sessionController.startSession,
+  cookieController.setSSIDCookie,
   (req, res) => {
     // If login is successful redirect to main app page:
     res.redirect('/');
@@ -69,8 +69,8 @@ app.post(
   '/signup',
   userController.checkEmailExists,
   userController.createUser,
-  cookieController.setSSIDCookie,
   sessionController.startSession,
+  cookieController.setSSIDCookie,
   (req, res) => {
     // Redirect user to main app page once signed up:
     res.redirect('/');
